@@ -15,11 +15,15 @@ class CustomersController extends Controller
     public function index()
     {
         //
-        $customers = Customers::all();
+        // $customers = Customers::all();
+        $activeCustomers = Customers::active()->get();
+        $inactiveCustomers = Customers::inactive()->get();
         // echo($customers);
-        return view('customers.index', [
-            'customers' => $customers,
-        ]);
+        // return view('customers.index', [
+        //     'activeCustomers' => $activeCustomers,
+        //     'interactiveCustomers' => $interactiveCustomers,
+        // ]);
+        return view('customers.index', compact('activeCustomers', 'inactiveCustomers'));
     }
 
     /**
@@ -43,14 +47,18 @@ class CustomersController extends Controller
         //
         $data  = request()->validate([
             'name' => 'required|min:3',
-            'email' => 'required'
+            'email' => 'required',
+            'active' => 'required',
         ]);
-        $customers = new Customers();
-        $customers->name = request('name');
-        $customers->email = request('email');
-        $customers->active = request('active');
 
-        $customers->save();
+        Customers::create($data);
+
+        // $customers = new Customers();
+        // $customers->name = request('name');
+        // $customers->email = request('email');
+        // $customers->active = request('active');
+
+        // $customers->save();
         
         return back();
     }

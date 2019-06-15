@@ -25,9 +25,16 @@
     </form>
 
     <div class="container">
-        <label>Customers List</label><hr>
-        @foreach($customers as $customer)
-            <p>Name - {{ $customer->name }}<i>(By {{ $customer->email }})</i><b>{{ $customer->active }}</b></p>
+        <label>Active Customers List</label><hr>
+        @foreach($activeCustomers as $activeCustomer)
+            <p>Name - {{ $activeCustomer->name }}<i>(By {{ $activeCustomer->email }})</i><b>{{ $activeCustomer->active }}</b></p>
+            <hr>
+        @endforeach
+    </div>
+    <div class="container">
+        <label>Inactive Customers List</label><hr>
+        @foreach($inactiveCustomers as $inactiveCustomer)
+            <p>Name - {{ $inactiveCustomer->name }}<i>(By {{ $inactiveCustomer->email }})</i><b>{{ $inactiveCustomer->active }}</b></p>
             <hr>
         @endforeach
     </div>
