@@ -1,41 +1,30 @@
 
-    <form action="customers" method="POST">
+    <!-- add page -->
+    <a href="/customers/create">Add Customer</a>
 
-        <label>Name</label>
-        <input type="text" name="name" value="{{ old('name') }}"><br><br>
-
-        <label>Email</label>
-        <input type="text" name="email" value="{{ old('email') }}"><br><br>
-
-        <label>Active</label>
-        <select name="active" id="active">
-            <option value="" disabled >Select Customer Status</option>
-            <option value="1">Active</option>
-            <option value="2">Interactive</option>
-        </select>
-
-        <div>
-            {{ $errors->first('name') }}
-            {{ $errors->first('email') }}
-        </div>
-
-        <input type="submit" value="Submits">
-
-        @csrf
-    </form>
-
-    <div class="container">
+    <!-- list view -->
+    <!-- <div class="container">
         <label>Active Customers List</label><hr>
-        @foreach($activeCustomers as $activeCustomer)
-            <p>Name - {{ $activeCustomer->name }}<i>(By {{ $activeCustomer->email }})</i><b>{{ $activeCustomer->active }}</b></p>
+        @//foreach(//$//activeCustomers as $///activeCustomer)
+            <p>Name - // { // {// $ // activeCustomer//->//name }}<i>(By //{///{ //$///activeCustomer///->///company//>///name }})</i></p>
             <hr>
-        @endforeach
+        @//endforeach
     </div>
     <div class="container">
         <label>Inactive Customers List</label><hr>
-        @foreach($inactiveCustomers as $inactiveCustomer)
-            <p>Name - {{ $inactiveCustomer->name }}<i>(By {{ $inactiveCustomer->email }})</i><b>{{ $inactiveCustomer->active }}</b></p>
+        ///@///foreach(///$i//nactiveCustomers as ///$///inactiveCustomer)
+            <p>Name - ///{///{// /$/i/nactiveCustomer//->///name }}<i>(By ///{///{//// ///$////inactiveCustomer//->////company///->/n//ame }})</i></p>
             <hr>
+        ///@///e//nd/foreach
+    </div> -->
+
+    <div class="container">
+        <label>
+            Customer List
+        </label>
+        @foreach($customers as $customer)
+        <p>
+        <a href="/customers/{{ $customer->company_id }}">{{ $customer->name }}</a>
+              ------------------ {{ $customer->active }}</p><hr>
         @endforeach
     </div>
-

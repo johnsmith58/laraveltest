@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Customers;
+use App\Company;
 
 class CustomersController extends Controller
 {
@@ -15,15 +16,13 @@ class CustomersController extends Controller
     public function index()
     {
         //
-        // $customers = Customers::all();
-        $activeCustomers = Customers::active()->get();
-        $inactiveCustomers = Customers::inactive()->get();
-        // echo($customers);
-        // return view('customers.index', [
-        //     'activeCustomers' => $activeCustomers,
-        //     'interactiveCustomers' => $interactiveCustomers,
-        // ]);
-        return view('customers.index', compact('activeCustomers', 'inactiveCustomers'));
+        // $activeCustomers = Customers::active()->get();
+        // $inactiveCustomers = Customers::inactive()->get();
+        $customers = Customers::all();
+
+        // return view('customers.index', compact('activeCustomers', 'inactiveCustomers'));
+
+        return view('customers.index', compact('customers'));
     }
 
     /**
@@ -34,6 +33,11 @@ class CustomersController extends Controller
     public function create()
     {
         //
+
+        $companies = Company::all();
+
+        $customer = new Customers();
+        return view('customers.create', compact('companies', 'customer'));
     }
 
     /**
@@ -49,6 +53,7 @@ class CustomersController extends Controller
             'name' => 'required|min:3',
             'email' => 'required',
             'active' => 'required',
+            'company_id' => ''
         ]);
 
         Customers::create($data);
@@ -60,7 +65,7 @@ class CustomersController extends Controller
 
         // $customers->save();
         
-        return back();
+        return redirect('customers');
     }
 
     /**
@@ -69,9 +74,12 @@ class CustomersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Customers $customer)
     {
         //
+        // $customer = Customers::find($customer);
+        
+        return view('customers.show', compact('customer'));
     }
 
     /**
@@ -80,9 +88,12 @@ class CustomersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Customers $customer)
     {
         //
+        $companies = Company::all();
+
+        return view('customers.edit', compact('customer', 'companies'));
     }
 
     /**
@@ -92,9 +103,19 @@ class CustomersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Customers $customer)
     {
         //
+        $data  = request()->validate([
+            'name' => 'required|min:3',
+            'email' => 'required',
+            'active' => 'required',
+            'company_id' => ''
+        ]);
+
+        $customer->update($data);
+
+        return redirect('customers/' . $customer->id);
     }
 
     /**
