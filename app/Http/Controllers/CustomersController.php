@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Customers;
 use App\Company;
+use App\Mail\ContactformMaill;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ContacrformMaill;
 
 class CustomersController extends Controller
 {
@@ -55,6 +58,8 @@ class CustomersController extends Controller
             'active' => 'required',
             'company_id' => ''
         ]);
+
+        Mail::to($request->email)->send(new ContacrformMaill($data));
 
         Customers::create($data);
 

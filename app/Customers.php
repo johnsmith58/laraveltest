@@ -15,13 +15,13 @@ class Customers extends Model
         'inactive' => 2
     ];
 
-    public function getActiveAttribute($attribute)
-    {
-        return[
-            1 => 'Active',
-            2 => 'Inactive'
-        ][$attribute];
-    }
+    // public function getActiveAttribute($attribute)
+    // {
+    //     return[
+    //         1 => 'Active',
+    //         2 => 'Inactive'
+    //     ][$attribute];
+    // }
 
     public function scopeActive($query)
     {
